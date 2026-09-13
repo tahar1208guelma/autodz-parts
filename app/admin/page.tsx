@@ -25,6 +25,7 @@ import {
   CheckCircle2, 
   AlertCircle,
   Eye,
+  EyeOff,
   Sliders
 } from 'lucide-react';
 
@@ -41,9 +42,10 @@ export default function AdminPage() {
     logoutAdmin,
   } = useApp();
 
-  // Pin state
+  // Pin / Password state
   const [pinInput, setPinInput] = useState('');
   const [pinError, setPinError] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   // Active Admin Tab
   const [activeTab, setActiveTab] = useState<'parts' | 'inquiries'>('parts');
@@ -67,7 +69,7 @@ export default function AdminPage() {
   // Login handler
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    const success = loginAdmin(pinInput);
+    const success = loginAdmin(pinInput.trim());
     if (!success) {
       setPinError(true);
     } else {
@@ -128,7 +130,7 @@ export default function AdminPage() {
     setIsAddModalOpen(false);
   };
 
-  // Screen 1: PIN Lock Screen
+  // Screen 1: Password Lock Screen
   if (!isAdminLoggedIn) {
     return (
       <div className="min-h-[80vh] flex items-center justify-center p-4">
@@ -139,32 +141,40 @@ export default function AdminPage() {
 
           <div className="space-y-1.5">
             <h1 className="text-xl font-black text-slate-900 dark:text-white">
-              لوحة إدارة قطع غيار كابتيفا
+              لوحة تحكم إدارة كابتيفا
             </h1>
             <p className="text-xs text-slate-500">
-              أدخل الرمز السري للإدارة للتحكم في السلع والطلبات من هاتفك
+              أدخل كلمة المرور الخاصة بالإدارة للمتابعة
             </p>
           </div>
 
-          <form onSubmit={handleLogin} className="space-y-4">
-            <div>
-              <input
-                type="password"
-                inputMode="numeric"
-                pattern="[0-9]*"
-                maxLength={6}
-                value={pinInput}
-                onChange={(e) => {
-                  setPinInput(e.target.value);
-                  setPinError(false);
-                }}
-                placeholder="أدخل الرمز (مثال: 0770)"
-                className="w-full text-center tracking-[0.4em] text-2xl font-black py-3 rounded-2xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 focus:outline-hidden"
-                autoFocus
-              />
+          <form onSubmit={handleLogin} className="space-y-4 text-xs">
+            <div className="space-y-1.5">
+              <div className="relative">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  value={pinInput}
+                  onChange={(e) => {
+                    setPinInput(e.target.value);
+                    setPinError(false);
+                  }}
+                  placeholder="أدخل كلمة المرور..."
+                  dir="ltr"
+                  className="w-full text-center text-base font-bold py-3 pr-10 pl-10 rounded-2xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 focus:outline-hidden"
+                  autoFocus
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1"
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
+
               {pinError && (
-                <p className="text-xs text-rose-600 font-bold mt-2">
-                  الرمز غير صحيح. الرمز الافتراضي هو: 0770
+                <p className="text-xs text-rose-600 font-bold">
+                  كلمة المرور غير صحيحة، يرجى المحاولة مجدداً
                 </p>
               )}
             </div>
@@ -176,10 +186,6 @@ export default function AdminPage() {
               دخول إلى لوحة التحكم
             </button>
           </form>
-
-          <div className="pt-2 text-[11px] text-slate-400">
-            الرمز السري الافتراضي: <strong className="font-mono text-slate-600 dark:text-slate-300">0770</strong> (بداية رقم المدير)
-          </div>
         </div>
       </div>
     );

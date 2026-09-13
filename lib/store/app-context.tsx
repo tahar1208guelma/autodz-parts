@@ -65,7 +65,7 @@ interface AppContextType {
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
-const ADMIN_PIN = '0770'; // الرمز السري السهل الخاص بهاتف المدير
+const ADMIN_PASSWORD = 'Braknia1234@';
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const [selectedCaptiva, setSelectedCaptiva] = useState<SelectedCaptiva | null>(null);
@@ -128,8 +128,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   }, [inquiries]);
 
   // Admin Auth functions
-  const loginAdmin = (pin: string): boolean => {
-    if (pin === ADMIN_PIN || pin === '2026') {
+  const loginAdmin = (password: string): boolean => {
+    if (password === ADMIN_PASSWORD) {
       setIsAdminLoggedIn(true);
       localStorage.setItem('captivadz_admin_auth', 'true');
       return true;
