@@ -3,11 +3,11 @@ import "./globals.css";
 import { AppProvider } from "../lib/store/app-context";
 import { Navbar } from "../components/Navbar";
 import { VehicleSelectorModal } from "../components/VehicleSelectorModal";
-import { CartDrawer } from "../components/CartDrawer";
+import { InquiryModal } from "../components/InquiryModal";
 
 export const metadata: Metadata = {
-  title: "AutoDZ Parts | قطع غيار ومستلزمات السيارات في الجزائر",
-  description: "المنصة الجزائرية الأولى المتخصصة في بيع وطلب قطع غيار السيارات مع فحص التوافق الدقيق والتوصيل لـ 58 ولاية والدفع عند الاستلام.",
+  title: "CaptivaDZ Parts | قطع غيار وصيانة شيفروليه كابتيفا في الجزائر (جديد وقديم)",
+  description: "المركز المتخصص لقطع غيار Chevrolet Captiva (جديد ومستعمل مضمون Décharge) مع خدمة التركيب من طرف فريق الصيانة. هاتف المدير: 0770082742 - إيميل: abraknia@gmail.com",
 };
 
 export default function RootLayout({
@@ -24,7 +24,7 @@ export default function RootLayout({
             {children}
           </main>
           <VehicleSelectorModal />
-          <CartDrawer />
+          <InquiryModal />
         </AppProvider>
       </body>
     </html>
