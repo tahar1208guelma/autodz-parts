@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { useApp } from '../lib/store/app-context';
 import { CONTACT_INFO } from '../lib/types';
 import { 
@@ -13,7 +14,8 @@ import {
   SlidersHorizontal,
   X,
   ShieldCheck,
-  MapPin
+  MapPin,
+  Lock
 } from 'lucide-react';
 
 export function Navbar() {
@@ -74,6 +76,16 @@ export function Navbar() {
               <Mail className="w-3 h-3 text-blue-400" />
               <span className="font-mono text-[11px]">{CONTACT_INFO.email}</span>
             </a>
+
+            {/* Admin Link */}
+            <Link
+              href="/admin"
+              className="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-amber-400 px-2.5 py-0.5 rounded-md text-[11px] font-bold transition-colors"
+              title="لوحة التحكم من الهاتف"
+            >
+              <Lock className="w-3 h-3" />
+              <span>الإدارة</span>
+            </Link>
           </div>
         </div>
       </div>

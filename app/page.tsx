@@ -26,6 +26,7 @@ import {
 
 export default function CaptivaHomePage() {
   const {
+    parts,
     conditionFilter,
     setConditionFilter,
     selectedCategoryId,
@@ -39,7 +40,7 @@ export default function CaptivaHomePage() {
   const [onlyCompatible, setOnlyCompatible] = useState(false);
 
   // Filter parts
-  const filteredParts = CAPTIVA_PARTS.filter((part) => {
+  const filteredParts = parts.filter((part) => {
     // Condition filter (All, NEW, USED)
     if (conditionFilter !== 'ALL' && part.condition !== conditionFilter) {
       return false;
@@ -233,7 +234,7 @@ export default function CaptivaHomePage() {
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
               }`}
             >
-              الكل ({CAPTIVA_PARTS.length})
+              الكل ({parts.length})
             </button>
             <button
               onClick={() => setConditionFilter('NEW')}
